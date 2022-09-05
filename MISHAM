@@ -34,3 +34,17 @@ console.log(randomString(32, '#aA'));
 console.log(randomString(64, '#A!'));
 
 </script>
+
+ANIMATION CSS HOVE UPWARDS:
+
+ .anim{
+    opacity: 0;
+    transform: translateY(30px);
+    animation: moveup 0.5s linear forwards;
+ }
+ @keyframes moveup{
+    100%{
+        opacity: 1;
+    transform: translateY(0px);
+    }
+ }
