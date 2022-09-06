@@ -70,3 +70,32 @@ NAME ANIMATION: CSS
     background-position: 2000px 0;
   }
 }
+
+
+TOGGLE BUTTON:
+
+.small-sidebar{
+    width: 5%;
+}
+.small-sidebar a p{
+    display: none;
+   
+}
+.small-sidebar h3{
+    display: none;
+    
+}
+.small-sidebar hr{
+    width: 50%;
+    margin-bottom: 25px;
+    
+    
+ var menuIcon= document.querySelector(".menu");
+var sidebar= document.querySelector(".sidebar");
+
+menuIcon.onclick=function(){
+    sidebar.classList.toggle("small-sidebar")
+}
+
+Class:menu=>toggle image class name.
+Class:sidebar=>class name of sidebar
