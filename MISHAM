@@ -108,4 +108,74 @@ npm i react-scroll-to-top
 import ScrollToTop from "react-scroll-to-top";
 
  <ScrollToTop smooth />
+ 
+ 
+ 
+ TOAST:
+ 
+ npm i react-toastify
+ 
+  import React from 'react';
+
+  import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+  
+  function App(){
+    const notify = () => toast("Wow so easy!");
+
+    return (
+      <div>
+        <button onClick={notify}>Notify!</button>
+        <ToastContainer />
+      </div>
+    );
+  }
+  
+  function GeeksforGeeks(){
+    const notify = ()=>{
+        toast('Hello Geeks 4',
+           {position: toast.POSITION.BOTTOM_LEFT})
+        toast('Hello Geeks 6',
+           {position: toast.POSITION.BOTTOM_RIGHT})
+        toast('Hello Geeks 5',
+           {position: toast.POSITION.BOTTOM_CENTER})
+        toast('Hello Geeks 1',
+           {position: toast.POSITION.TOP_LEFT})
+        toast('Hello Geeks 3',
+           {position: toast.POSITION.TOP_RIGHT})
+        toast('Hello Geeks 2',
+           {position: toast.POSITION.TOP_CENTER})
+    }
+    
+    
+    function GeeksforGeeks(){
+    const notify = ()=>{
+        // inbuilt-notification
+        toast.warning('Danger')
+        // inbuilt-notification
+        toast.success('successful')
+        // inbuilt-notification
+        toast.info('GeeksForGeeks')
+        // inbuilt-notification
+        toast.error('Runtime error')
+        // default notification
+        toast('Hello Geeks')
+          
+    }
+    
+    
+    function GeeksforGeeks(){
+    const notify = ()=>{
+        // Set to 10sec
+        toast.warning('Danger', {autoClose:10000})
+        // Set to 3sec
+        toast.success('successful', {autoClose:3000})
+        // User have to close it
+        toast.info('GeeksForGeeks', {autoClose:false})
+        toast.error('Runtime error', {
+         // Set to 15sec
+         position: toast.POSITION.BOTTOM_LEFT, autoClose:15000})
+        toast('Hello Geeks')// Default
+          
+    }
 
