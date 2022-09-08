@@ -99,3 +99,13 @@ menuIcon.onclick=function(){
 
 Class:menu=>toggle image class name.
 Class:sidebar=>class name of sidebar
+
+
+NPM SCROLL TO TOP PACKAGE:
+
+npm i react-scroll-to-top
+
+import ScrollToTop from "react-scroll-to-top";
+
+ <ScrollToTop smooth />
+
