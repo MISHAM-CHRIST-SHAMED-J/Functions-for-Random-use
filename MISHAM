@@ -191,3 +191,41 @@ draggable
 pauseOnHover
 />
  toast.warning('success')
+
+
+CONTACT US REALTIME MAIL:
+
+//npm i emailjs-com
+
+import React, { useRef } from 'react';
+import emailjs from 'emailjs-com';
+
+export const ContactUs = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_1colpnl', 'template_df18idg', form.current, 'acpm4z5WNg5AxfetO')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+      e.target.reset()
+  };
+
+  return (
+    <form ref={form} onSubmit={sendEmail}>
+      <label>Name</label>
+      <input type="text" name="name" />
+      <label>Email</label>
+      <input type="email" name="email" />
+      <label>Phone</label>
+      <input type="phone" name="phone" />
+      <label>Message</label>
+      <textarea name="message" />
+      <input type="submit" value="Send" />
+    </form>
+  );
+};
