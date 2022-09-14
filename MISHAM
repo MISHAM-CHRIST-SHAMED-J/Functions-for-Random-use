@@ -343,3 +343,15 @@ const Posts = ({ posts, loading }) => {
 };
 
 export default Posts;
+
+
+CHECK DUPLICATES IN ARRAY OF OBJECTS:
+
+const values =[]
+ 
+ const uniqueValues = new Set(values.map(v => v.id));
+ 
+ if (uniqueValues.size < values.length) {
+   console.log('duplicates found')}
+   else {console.log("no duplicates")
+ }
