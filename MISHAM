@@ -355,3 +355,24 @@ const values =[]
    console.log('duplicates found')}
    else {console.log("no duplicates")
  }
+
+
+
+NODE.JS CONNECT TO MONGODB:
+
+const mongodb=require("mongodb")
+const mongoClient=mongodb.MongoClient
+
+
+app.get("/home",async(req,res)=>{
+   try {
+    const connection=await mongoClient.connect("mongodb://localhost:27017");
+    const db=connection.db("dashboarddb");
+   let response= await db.collection("users").find().toArray()
+    await connection.close();
+    res.status(200).json(response)
+
+   } catch (error) {
+    res.status(500).json({message:"error"})
+   }
+})
