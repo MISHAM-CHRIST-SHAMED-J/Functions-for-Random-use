@@ -376,3 +376,15 @@ app.get("/home",async(req,res)=>{
     res.status(500).json({message:"error"})
    }
 })
+
+
+
+FUNCTION FOR CLEAR INPUTBOX AFTER CLICK SUBMIT:
+
+let input=document.getElementById("input");
+let btn=document.getElementById("btn");
+
+btn.addEventListener("click",()=>{
+    input.foreach(input=>input.value="")
+})
+
