@@ -410,3 +410,27 @@ img{
     width: 30px;
     padding: 5px; 
 }
+
+
+RADIO BUTTON VALUE:
+
+function displaySelectedOption(){
+var radios = document.getElementsByName('option');
+    for (var radio of radios)
+    {
+        if (radio.checked) 
+        {
+        document.getElementById("selectedOption").innerHTML=radio.value;
+        }
+    }
+}
+displaySelectedOption();
+
+OPTION VALUE:
+
+function getSelectedOption(){
+ document.getElementById("selectedOption").innerHTML=
+ document.getElementsByTagName("select")[0].value;
+}
+getSelectedOption();
+
