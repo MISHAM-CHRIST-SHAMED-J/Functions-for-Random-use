@@ -494,3 +494,201 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react'
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Autocomplete from '@mui/material/Autocomplete';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+function Signin() {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      };
+
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            password: '',
+            email: '',
+            //   gender:'',
+            //   role:''
+        },
+        validationSchema: Yup.object({
+            username: Yup.string()
+                .min(5, 'Must be 15 characters or less')
+                .required('Required'),
+            password: Yup.string()
+                .min(2, 'Must be 20 characters or less')
+                .required('Required'),
+            email: Yup.string().email('Invalid email address').required('Required'),
+        }),
+        onSubmit: (values,{resetForm}) => {
+            let res=JSON.stringify(values, null, 2) ;
+            console.log(res)
+            handleOpen()
+            resetForm({values:''})
+        },
+    });
+
+    const top100Films = [
+        { label: 'ADMIN', value:'ADMIN'},
+        { label: 'SUPER ADMIN', },
+        { label: 'STAFF', },]
+
+    return (
+        <div className='wrapper'>
+            <div className="hero">
+                <div className="head">
+                    <h2>SIGN IN</h2>
+                </div>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className="input">
+                        <TextField label='Username' fullWidth
+                            id="username"
+                            name="username"
+                            type="text"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.username}
+                        />
+                        {formik.touched.username && formik.errors.username ? (
+                            <div>{formik.errors.username}</div>
+                        ) : null}
+                    </div>
+                    <div className="input">
+                        <TextField label='Email ID' fullWidth
+                            id="email"
+                            name="email"
+                            type="email"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.email}
+                        />
+                        {formik.touched.email && formik.errors.email ? (
+                            <div>{formik.errors.email}</div>
+                        ) : null}
+                    </div>
+                    <div className="input">
+                        <TextField label='Password' fullWidth
+                            id="password"
+                            name="password"
+                            type="password"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.password}
+                        />
+                        {formik.touched.password && formik.errors.password ? (
+                            <div>{formik.errors.password}</div>
+                        ) : null}
+                    </div>
+                    <div className="input">
+                        <FormControl>
+                            <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+                            <RadioGroup
+                                aria-labelledby="demo-radio-buttons-group-label"
+                                    onChange={(e)=>console.log(e.target.value)}
+                                name="radio-buttons-group"
+                            >
+                                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                <FormControlLabel value="other" control={<Radio />} label="Other" />
+                            </RadioGroup>
+                        </FormControl></div>
+
+
+                    <div className="input">
+
+                        {/* <Autocomplete fullWidth
+                            disablePortal
+                            id="combo-box-demo"
+                            options={top100Films}
+                             onChange={(e)=>console.log(e.target.value)}
+                            renderInput={(params) => <TextField {...params} label="Role" />}
+                        /> */}
+                        <FormControl fullWidth>
+  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    label="Age"
+    onChange={(e)=>console.log(e.target.value)}
+
+  >
+    <MenuItem value={10}>Ten</MenuItem>
+    <MenuItem value={20}>Twenty</MenuItem>
+    <MenuItem value={30}>Thirty</MenuItem>
+  </Select>
+</FormControl>
+                        
+                        </div>
+
+
+
+                    <div className="button">
+                        <Button variant="contained" type='submit' size="large">
+                            SUBMIT
+                        </Button>
+                    </div>
+                </form>
+            </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+           
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2,mx:6 }}>
+           User Data Successfully Added
+          </Typography>
+        </Box>
+      </Modal>
+        </div>
+    )
+}
+
+export default Signin
