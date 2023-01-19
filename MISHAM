@@ -736,3 +736,38 @@ export default Signin
   justify-content: center;
   align-items: center;
 }
+
+
+CancelToken JS formate:
+
+import React from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+
+function App() {
+
+  const debounce = (func, timeout = 1000) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
+  const [data, setdata] = useState('')
+  const processChange = debounce((e) => {
+    setdata(e)
+    console.log(e)
+  });
+
+
+
+  return (
+    <div>
+      <input type="text" onChange={(e) => { processChange(e.target.value) }} />
+      <p>{data}</p>
+    </div>
+
+  )
+}
+
+export default App
