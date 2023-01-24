@@ -771,3 +771,239 @@ function App() {
 }
 
 export default App
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './App.css'
+import { Formik } from 'formik';
+import axios from 'axios';
+
+function App() {
+
+  return (
+    <div className="container">
+      <h1>Ticket Booking</h1>
+      <Formik
+        initialValues={{ email: '', number: '', name: '', select: '' }}
+        validate={values => {
+          const errors = {};
+          if (!values.name) {
+            errors.name = 'Required';
+          } if (!values.number) {
+            errors.number = 'Required';
+          } if (!values.select) {
+            errors.select = 'Required';
+          }
+          if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = 'Invalid email address';
+          } if (
+            !values.email
+          ) {
+            errors.email = 'Required';
+          }
+          return errors;
+        }}
+        onSubmit={async (values) => {
+          try {
+            await axios.post('http://localhost:5005/book', values)
+          } catch (error) {
+            console.log(error)
+          }
+        }}
+
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+
+          /* and other goodies */
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder='Enter Name'
+              style={{ width: 500 }}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
+            />
+            {errors.name && touched.name && errors.name}<br />
+            <input
+              type="email"
+              name="email"
+              placeholder='Enter Email Id'
+              style={{ width: 500 }}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+            />
+            {errors.email && touched.email && errors.email}<br />
+            <select
+              type="select"
+              name="select"
+              style={{ width: 500 }}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.select}
+            >
+              <option value='' disabled >select</option>
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+              <option value="pro">Pro</option>
+            </select>
+            {errors.select && touched.select && errors.select}<br />
+            <input
+              type="number"
+              name="number"
+              style={{ width: 500 }}
+              placeholder='Enter Seat Number'
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.number}
+              min="1" max="10"
+            />
+            {errors.number && touched.number && errors.number}<br />
+            <button type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
+
+
+          </form>
+        )}
+
+      </Formik>
+    </div>
+
+  )
+}
+
+export default App
+
+
+
+
+
+
+
+const express=require("express")
+const app=express()
+app.listen(5000)
+console.log("working...")
+app.use(express.json())
+const cors=require("cors")
+const Mongodb=require("Mongodb")
+const Mongoclient=Mongodb.Mongoclient
+app.use(cors({origin:"https://effortless-concha-6652c7.netlify.app/"}))
+app.use(cors({origin:"http://localhost:3001"}))
+const mongodb=require("mongodb")
+const mongoClient=mongodb.MongoClient
+
+ 
+
+app.get("/get",cors(),async(req,res)=>{
+    try {
+     const connection=await mongoClient.connect("mongodb+srv://misham:misham25@cluster0.iht1koa.mongodb.net/test");
+     const db=connection.db("misham");
+    let response= await db.collection("movie").find().toArray()
+    console.log(response);
+     await connection.close();
+     res.status(200).json(response)
+ 
+    } catch (error) {
+     res.status(500).json({message:"error"})
+    }
+ })
+
+//  app.get("/getsinglemovie/:id",cors(),async(req,res)=>{
+//    try {
+//     const connection=await mongoClient.connect("mongodb+srv://misham25:misham25@atlascluster.b99otct.mongodb.net/?retryWrites=true&w=majority");
+//     const db=connection.db("bookmyshow");
+//    let response= await db.collection("movielist").findOne({_id:Mongodb.ObjectId(req.params.id)})
+//     await connection.close();
+//     res.status(200).json(response)
+
+//    } catch (error) {
+//     res.status(500).json({message:"error"})
+//    }
+// })
+
+// app.get("/getseat",cors(),async(req,res)=>{
+//    try {
+//     const connection=await mongoClient.connect("mongodb+srv://misham25:misham25@atlascluster.b99otct.mongodb.net/?retryWrites=true&w=majority");
+//     const db=connection.db("bookmyshow");
+//    let response= await db.collection("seatlist").find().toArray()
+//     await connection.close();
+//     res.status(200).json(response)
+
+//    } catch (error) {
+//     res.status(500).json({message:"error"})
+//    }
+// })
+
+
+// app.post("/postseat",cors(),async(req,res)=>{
+//    try {
+//     const connection=await mongoClient.connect("mongodb+srv://misham25:misham25@atlascluster.b99otct.mongodb.net/?retryWrites=true&w=majority");
+//     const db=connection.db("bookmyshow");
+//    let response= await db.collection("ocupseat").insertOne(req.body)
+//     await connection.close();
+//     res.status(200).json(response)
+
+//    } catch (error) {
+//     res.status(500).json({message:"error"})
+//    }
+// })
+
+
+//  app.post("/postmovies",cors(),async(req,res)=>{
+//     try {
+//      const connection=await mongoClient.connect("mongodb+srv://misham25:misham25@atlascluster.b99otct.mongodb.net/?retryWrites=true&w=majority");
+//      const db=connection.db("bookmyshow");
+//     let response= await db.collection("movielist").insertOne(req.body)
+//      await connection.close();
+//      res.status(200).json(response)
+ 
+//     } catch (error) {
+//      res.status(500).json({message:"error"})
+//     }
+//  })
+
+
+
+  
+
+
+
